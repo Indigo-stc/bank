@@ -1,0 +1,82 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <!-- Logo -->
+      <div class="text-center mb-4">
+        <img src="assets/open-bank.svg" alt="Banco de Loja Logo" class="logo" />
+      </div>
+
+      <!-- Card: Pregunta y Respuesta -->
+      <div class="card shadow-sm mb-4 rounded-4">
+        <div class="card-header bg-primary text-white text-center">
+          <h5 class="mb-0">Pregunta de Seguridad</h5>
+        </div>
+        <div class="card-body">
+          <div class="row align-items-center">
+            <!-- Pregunta -->
+            <div class="col-md-6 text-md-end text-center mb-3 mb-md-0">
+              <label for="answer" class="fw-semibold fs-6">{{ question?.question }}</label>
+            </div>
+
+            <!-- Respuesta -->
+            <div class="col-md-6">
+              <form [formGroup]="questionForm">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    id="answer"
+                    formControlName="answer"
+                    class="form-control"
+                    placeholder="Tu respuesta"
+                    [ngClass]="{
+                      'is-invalid': questionForm.get('answer')?.invalid && questionForm.get('answer')?.touched
+                    }"
+                  />
+                  <div class="invalid-feedback">Este campo es obligatorio.</div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: Galería de íconos -->
+      <div class="card shadow-sm rounded-4 mb-4">
+        <div class="card-header bg-secondary text-white text-center">
+          <h5 class="mb-0">Selecciona un ícono</h5>
+        </div>
+        <div class="card-body">
+          <!-- máximo 10 íconos -->
+          <div class="row justify-content-center">
+            <div
+              *ngFor="let icon of icons | slice:0:10"
+              class="col-6 col-sm-4 col-md-2 mb-3 d-flex justify-content-center"
+            >
+              <div
+                class="card border border-2 shadow-sm"
+                [class.border-primary]="isSelected(icon)"
+                style="cursor: pointer; width: 100px; transition: 0.2s;"
+                (click)="selectIcon(icon)"
+              >
+                <img
+                  [src]="'data:image/png;base64,' + icon.data"
+                  class="card-img-top p-2"
+                  alt="Icon"
+                  style="height: 80px; object-fit: contain;"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botón de Validación -->
+      <div class="d-grid gap-2">
+        <button class="btn btn-success btn-lg" (click)="validateAccount()">
+          Validar Respuesta
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

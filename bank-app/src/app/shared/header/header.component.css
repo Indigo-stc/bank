@@ -1,0 +1,70 @@
+.app-header {
+  background-color: #007bff;
+  padding: 10px 20px;
+  color: white;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo a la izquierda */
+.logo img {
+  height: 50px; /* Ajusta el tamaño del logo */
+  width: auto;
+}
+
+/* Navegación centrada o en medio */
+.nav-menu {
+  flex-grow: 1;
+  margin: 0 20px;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-list li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.nav-list li a.active,
+.nav-list li a:hover {
+  text-decoration: underline;
+}
+
+/* Buscador a la derecha */
+.search-box {
+  display: flex;
+  align-items: center;
+}
+
+.search-box input {
+  padding: 5px 10px;
+  border-radius: 4px 0 0 4px;
+  border: none;
+  outline: none;
+  width: 180px;
+}
+
+.search-box button {
+  padding: 5px 10px;
+  border: none;
+  background-color: #0056b3;
+  color: white;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.search-box button:hover {
+  background-color: #004494;
+}

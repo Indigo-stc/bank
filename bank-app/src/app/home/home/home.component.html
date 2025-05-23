@@ -1,0 +1,42 @@
+<div id="carouselExample" class="carousel slide">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="assets/carrucel1.jpg" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+
+  <!-- Tarjeta flotante tipo "nota" -->
+  <div
+    class="position-absolute bg-white bg-opacity-75 rounded shadow p-4"
+    style="top: 20%; right: 10%; width: 300px; z-index: 10;"
+  >
+    <div class="d-grid gap-3">
+      <!-- Fila 1 -->
+      <a routerLink="/home" class="d-flex align-items-center text-decoration-none text-dark hover-shadow">
+        <i class="bi bi-bank fs-3 me-3 text-primary"></i>
+        <span class="fw-semibold">Banca Electrónica</span>
+      </a>
+
+      <!-- Fila 2 -->
+      <a routerLink="/login" class="d-flex align-items-center text-decoration-none text-dark">
+        <i class="bi bi-person fs-3 me-3 text-success"></i>
+        <span class="fw-semibold">Personas</span>
+      </a>
+
+      <!-- Fila 3 -->
+      <a routerLink="/login" class="d-flex align-items-center text-decoration-none text-dark">
+        <i class="bi bi-building fs-3 me-3 text-warning"></i>
+        <span class="fw-semibold">Empresas</span>
+      </a>
+    </div>
+  </div>
+</div>
+

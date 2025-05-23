@@ -1,0 +1,60 @@
+<div class="container text-center">
+  <div class="row">
+    <div class="col">
+      <img src="assets/open-bank.svg" class="logo" alt="Banco de Loja Logo" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-7 left-section">
+      <h1 class="bank-title">
+        Banca<br />
+        Electrónica
+      </h1>
+      <h3 class="welcome-title">Bienvenidos</h3>
+      <p class="welcome">
+        En la Banca Electrónica del Banco de Loja, trabajamos de forma continua
+        para garantizar la seguridad de nuestros clientes, implementando
+        tecnologías avanzadas de autenticación y monitoreo constante de nuestras
+        plataformas. Su confianza es nuestra prioridad, por eso protegemos sus
+        transacciones con altos estándares de seguridad, brindándole un acceso
+        seguro, confiable y eficiente a sus cuentas en todo momento."
+      </p>
+
+      <div class="info-icons">
+        <div class="icon-item">
+          <i class="bi bi-question-circle icon-lg"></i>
+          <span>AYUDA</span>
+        </div>
+        <div class="separator"></div>
+        <div class="icon-item">
+          <i class="bi bi-shield-check icon-lg"></i>
+          <span>SEGURIDAD</span>
+        </div>
+        <div class="separator"></div>
+        <div class="icon-item">
+          <i class="bi bi-envelope icon-lg"></i>
+          <span>CONTACTO</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 right-section">
+      <form [formGroup]="loginForm">
+        <div class="formGroup">
+          <input name="username" id="username" type="text" class="form-control" formControlName="username" placeholder="Usuario"
+            [class.is-invalid]="loginForm.get('username')?.errors && loginForm.get('username')?.touched"/>
+        </div>
+        <div class="formGroup">
+          <input name="password" id="password" type="password" class="form-control" formControlName="password" placeholder="Clave"
+          [class.is-invalid]="loginForm.get('password')?.errors && loginForm.get('password')?.touched"/>
+        </div>
+        <button type="submit" (click)="login()">Ingresar</button>
+      </form>
+
+      <div class="links">
+        <a href="#">¿Olvidó su clave?</a>
+        <a href="#">¿Olvidó su usuario?</a>
+        <a href="#" class="highlight">Activar Banca Electrónica</a>
+      </div>
+    </div>
+  </div>
+</div>
