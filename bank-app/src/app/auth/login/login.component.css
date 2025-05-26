@@ -42,7 +42,6 @@
   align-items: center;
   font-size: 0.9rem;
   color: #333;
-  cursor: pointer;
 }
 
 .left-section .icon-lg {
@@ -56,6 +55,11 @@
   width: 35%;
   padding: 2rem;
   border-radius: 8px;
+}
+
+.right-section .alert {
+  margin-top: 1rem;
+  font-weight: bold;
 }
 
 .right-section input {
@@ -72,7 +76,6 @@
   background: green;
   color: white;
   border: none;
-  cursor: pointer;
   font-size: 1rem;
   border-radius: 4px;
   transition: background 0.3s ease;

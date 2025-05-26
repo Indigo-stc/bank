@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   
   router = inject(Router);
   _userService = inject(UserService)
+  errorMessage: any;
 
   ngOnInit(): void {
     this.loginForm = this.startForm()
@@ -35,10 +36,11 @@ export class LoginComponent implements OnInit {
     const { username, password } = this.loginForm.value;
     this._userService.login(username, password).subscribe({
       next: response => {
+        console.log("sds" + response)
         this.getRoster(response)
       },
       error: error => {
-
+        this.errorMessage = error.error.description || error.error.message
       }
     })
   }

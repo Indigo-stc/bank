@@ -10,23 +10,21 @@ import java.util.List;
 @Repository
 public interface IconRepository extends BaseRepository<Icon, Long> {
 
-    @Query(value = "( " +
-            "SELECT i.* FROM icon i " +
-            "JOIN answer_user a ON i.icn_id = a.anw_icn_id " +
-            "WHERE a.anw_usr_id = :userId " +
-            "ORDER BY RANDOM() " +
-            "LIMIT 1 " +
-            ") " +
-            "UNION " +
-            "( " +
-            "SELECT i.* FROM icon i " +
-            "WHERE i.icn_id NOT IN ( " +
-            "SELECT anw_icn_id FROM answer_user WHERE anw_usr_id = :userId " +
-            ") " +
-            "ORDER BY RANDOM() " +
-            "LIMIT 8 " +
-            ")",
-            nativeQuery = true)
+    @Query(value = """
+        SELECT * FROM (
+            SELECT * FROM icon i
+            WHERE i.icn_id IN (
+                SELECT iu.isr_icn_id FROM icon_user iu WHERE iu.isr_usr_id = :userId
+            )
+            UNION
+            SELECT * FROM icon i
+            WHERE i.icn_id NOT IN (
+                SELECT iu.isr_icn_id FROM icon_user iu WHERE iu.isr_usr_id = :userId
+            )
+        ) AS combined_icons
+        ORDER BY RANDOM()
+        LIMIT 10
+        """, nativeQuery = true)
     List<Icon> findIconsForUser(@Param("userId") Long userId);
 
 }

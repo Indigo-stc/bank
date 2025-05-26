@@ -33,16 +33,11 @@ public class AnswerUserServiceImpl extends BaseServiceImpl<AnswerUser, Long> imp
     }
 
     @Transactional
-    public AnswerUser findByUserAndQuestionAndAnswerAndIcon(AnswerUser answerUser) {
-        Optional<AnswerUser> existing = repository.findByUserAndQuestionAndAnswerAndIcon(
+    public Boolean existsByUserAndQuestionAndAnswer(AnswerUser answerUser) {
+        return repository.existsByUserAndQuestionAndAnswer(
                 answerUser.getUser(),
                 answerUser.getQuestion(),
-                answerUser.getAnswer(),
-                answerUser.getIcon()
+                answerUser.getAnswer()
         );
-        if (existing.isEmpty()) {
-            throw new ResourceNotFoundException("Any match " + answerUser.getId());
-        }
-        return existing.get();
     }
 }

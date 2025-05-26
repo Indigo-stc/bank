@@ -37,7 +37,14 @@
         </div>
       </div>
     </div>
+
     <div class="col-md-5 right-section">
+
+      @if (errorMessage) {
+        <div class="alert alert-danger" role="alert">
+          {{ errorMessage }}
+        </div>
+      }
       <form [formGroup]="loginForm">
         <div class="formGroup">
           <input name="username" id="username" type="text" class="form-control" formControlName="username" placeholder="Usuario"

@@ -1,7 +1,6 @@
 package com.skhola.bank_api.controller;
 
 import com.skhola.bank_api.model.AnswerUser;
-import com.skhola.bank_api.model.Question;
 import com.skhola.bank_api.service.AnswerUserService;
 import com.skhola.bank_api.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +25,7 @@ public class AnswerUserCtrl extends BaseCtrlImpl<AnswerUser, Long> {
 
     @PostMapping("/exists")
     public ResponseEntity<?> checkIfAnswerUserExists(@RequestBody AnswerUser answerUser) {
-        AnswerUser exists = service.findByUserAndQuestionAndAnswerAndIcon(answerUser);
-        return ResponseEntity.ok(exists);
+        return ResponseEntity.ok(service.existsByUserAndQuestionAndAnswer(answerUser));
     }
 
 }

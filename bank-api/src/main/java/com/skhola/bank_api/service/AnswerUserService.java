@@ -7,6 +7,6 @@ public interface AnswerUserService extends BaseService<AnswerUser, Long> {
 
     Question getRandomQuestionForUser(Long id);
 
-    AnswerUser findByUserAndQuestionAndAnswerAndIcon(AnswerUser answerUser);
+    Boolean existsByUserAndQuestionAndAnswer(AnswerUser answerUser);
 
 }

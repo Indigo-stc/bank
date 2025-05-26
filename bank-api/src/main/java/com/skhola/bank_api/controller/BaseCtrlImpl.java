@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @CrossOrigin(origins="*")
 public abstract class BaseCtrlImpl<T, ID extends Serializable> implements BaseCtrl<T,ID> {
@@ -50,6 +51,13 @@ public abstract class BaseCtrlImpl<T, ID extends Serializable> implements BaseCt
     public ResponseEntity<?> delete(@PathVariable ID id) {
         baseService.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("El registro ha sido eliminado");
+    }
+
+    // to create a set of records
+    @Override
+    @PostMapping("/save/all")
+    public ResponseEntity<?> saveAll(List<T> list) {
+        return ResponseEntity.status(HttpStatus.OK).body(baseService.saveAll(list));
     }
 
 }

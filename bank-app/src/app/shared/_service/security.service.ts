@@ -4,12 +4,12 @@ import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { CrudService } from './crud.service';
 import { Question } from '../models/question';
-import { Security } from '../models/security';
+import { AnswerUser } from '../models/security';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SecurityService extends CrudService<Security> {
+export class SecurityService extends CrudService<AnswerUser> {
 
   ENROLMENT_PATH = '/answer';
 
@@ -21,8 +21,8 @@ export class SecurityService extends CrudService<Security> {
     return this._http.get<Question>(`${this.endPoint}/question/${id}`)
   }
 
-  checkIfAnswerUserExists(answerUser: Security): Observable<Security | null> {
-    return this._http.post<Security | null>(`${this.endPoint}/exists`, answerUser);
+  checkIfAnswerUserExists(answerUser: AnswerUser): Observable<boolean> {
+    return this._http.post<boolean>(`${this.endPoint}/exists`, answerUser);
   }
 
 }

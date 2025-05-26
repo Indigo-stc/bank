@@ -1,4 +1,5 @@
 package com.skhola.bank_api.model;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -45,6 +46,7 @@ public class User {
     )
     @NotNull(message = "Password is required")
     @Column(name = "usr_password")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Email(message = "Invalid email")

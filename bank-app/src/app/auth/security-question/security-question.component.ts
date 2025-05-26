@@ -1,13 +1,15 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SecurityService } from '../../shared/_service/security.service';
 import { Question } from '../../shared/models/question';
-import { Security } from '../../shared/models/security';
+import { AnswerUser, IconUser } from '../../shared/models/security';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { IconService } from '../../shared/_service/icon.service';
 import { Icon } from '../../shared/models/icon';
 import { User } from '../../shared/models/user';
+import { IconUserService } from '../../shared/_service/icon-user.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-security-question',
@@ -21,12 +23,15 @@ export class SecurityQuestionComponent implements OnInit {
   question?: Question;
   icons?: Icon[] 
   selectedIcon?: Icon;
+  questionForm!: FormGroup;
 
   route = inject(ActivatedRoute);
   fb = inject(FormBuilder);
-  questionForm!: FormGroup;
+  router = inject(Router);
+
 
   _securityService = inject(SecurityService)
+  _iconUserService = inject(IconUserService)
   _iconService = inject(IconService)
 
   ngOnInit(): void {
@@ -55,32 +60,50 @@ export class SecurityQuestionComponent implements OnInit {
   getIcons(id: any) {
     this._iconService.getIconsForUser(id).subscribe({
       next: response => {
-        console.log(response)
         this.icons = response
       }
     })
   }
 
-  validateAccount() {
-    if (this.questionForm.invalid) {
-      this.markAllFieldsAsTouched();
-      return
-    }
-    const security: Security = new Security()
-    const user: User = new User()
-    user.id = this.id
-    security.user = user
-    const icon: Icon = new Icon()
-    icon.id = this.selectedIcon!.id
-    security.icon = icon
-    security.question = this.question
-    security.answer = this.questionForm.value.answer
-    this._securityService.checkIfAnswerUserExists(security).subscribe({
-      next: response => {
-        console.log(response)
-      }
-    }) 
+validateAccount() {
+  if (this.questionForm.invalid) {
+    this.markAllFieldsAsTouched();
+    return;
   }
+
+  const user: User = new User();
+  user.id = this.id;
+
+  const icon: Icon = new Icon();
+  icon.id = this.selectedIcon!.id;
+
+  const ansUsr: AnswerUser = new AnswerUser();
+  ansUsr.user = user;
+  ansUsr.question = this.question;
+  ansUsr.answer = this.questionForm.value.answer;
+
+  const icnUser: IconUser = new IconUser();
+  icnUser.user = user;
+  icnUser.icon = icon;
+
+  forkJoin([
+    this._securityService.checkIfAnswerUserExists(ansUsr),
+    this._iconUserService.checkIfIconUserExists(icnUser)
+  ]).subscribe({
+    next: ([answer, icon]) => {
+      if (!(answer && icon)) {
+        console.warn("⛔ Validación fallida: respuesta o icono no existen.");
+        return;
+      }
+
+      this.router.navigate(['/signup']);
+    },
+    error: (err) => {
+      console.error("💥 Error al validar:", err);
+    }
+  });
+}
+
 
   selectIcon(icon: Icon): void {
     this.selectedIcon = icon;

@@ -16,7 +16,6 @@ public interface AnswerUserRepository extends BaseRepository<AnswerUser, Long> {
     @Query(value = "SELECT * FROM answer_user WHERE anw_usr_id = :id ORDER BY RANDOM() LIMIT 1", nativeQuery = true)
     Optional<AnswerUser> findRandomByUserId(@Param("id") Long id);
 
-    Optional<AnswerUser> findByUserAndQuestionAndAnswerAndIcon(
-            User user, Question question, String answer, Icon icon);
+    Boolean existsByUserAndQuestionAndAnswer(User user, Question question, String answer);
 
 }
